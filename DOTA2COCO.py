@@ -3,8 +3,8 @@ import os
 import cv2
 import json
 
-wordname_15 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
-               'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
+wordname_18 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
+               'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', 'container-crane', 'airport', 'helipad']
 
 def DOTA2COCO(srcpath, destfile):
     imageparent = os.path.join(srcpath, 'images')
@@ -13,15 +13,15 @@ def DOTA2COCO(srcpath, destfile):
     data_dict = {}
     info = {'contributor': 'captain group',
            'data_created': '2018',
-           'description': 'This is 1.0 version of DOTA dataset.',
+           'description': 'This is 2.0 version of DOTA dataset.',
            'url': 'http://captain.whu.edu.cn/DOTAweb/',
-           'version': '1.0',
+           'version': '2.0',
            'year': 2018}
     data_dict['info'] = info
     data_dict['images'] = []
     data_dict['categories'] = []
     data_dict['annotations'] = []
-    for idex, name in enumerate(wordname_15):
+    for idex, name in enumerate(wordname_18):
         single_cat = {'id': idex + 1, 'name': name, 'supercategory': name}
         data_dict['categories'].append(single_cat)
 
@@ -49,7 +49,7 @@ def DOTA2COCO(srcpath, destfile):
             for obj in objects:
                 single_obj = {}
                 single_obj['area'] = obj['area']
-                single_obj['category_id'] = wordname_15.index(obj['name']) + 1
+                single_obj['category_id'] = wordname_18.index(obj['name']) + 1
                 single_obj['segmentation'] = []
                 single_obj['segmentation'].append(obj['poly'])
                 single_obj['iscrowd'] = 0
@@ -65,4 +65,4 @@ def DOTA2COCO(srcpath, destfile):
             image_id = image_id + 1
         json.dump(data_dict, f_out)
 if __name__ == '__main__':
-    DOTA2COCO(r'/data0/data_dj/1024_new', r'/data0/data_dj/1024_new/DOTA_trainval1024.json')
+    DOTA2COCO(r'/data0/data/1024_new', r'/data0/data/1024_new/DOTA_trainval1024.json')

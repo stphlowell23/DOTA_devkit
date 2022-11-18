@@ -37,7 +37,7 @@ class splitbase():
                  outpath,
                  code = 'utf-8',
                  gap=100,
-                 subsize=1024,
+                 subsize=512,
                  thresh=0.7,
                  choosebestpoint=True,
                  ext = '.png'
